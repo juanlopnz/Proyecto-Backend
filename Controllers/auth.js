@@ -1,33 +1,36 @@
 const express = require('express');
-const { validationResult } = require('express-validator');
+const Usuario = require('../Models/User')
 
-const crearUsuario = (req, res = express.response) => {
+const crearUsuario = async (req, res = express.response) => {
 
   const { username, email, password, confirmpassword  }  = req.body;
 
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
-      ok: false,
-      errors: errors.mapped()
+  try{
+    if ( password !== confirmpassword ) {
+      return res.status(400).json({
+        ok: false,
+        msg: 'Las contraseñas no coinciden'
+      });
+    }
+
+    const user = new Usuario(username, email, password);
+    await user.save();
+  
+    res.status(200).json({
+      ok: true,
+      msg: 'Crear usuario /new',
+      user
     });
+  }catch(err){
+    console.log(err);
+    res.status(500).json({
+      ok: false,
+      err,
+    })
   }
 
-  if ( password !== confirmpassword ) {
-    return res.status(400).json({
-      ok: false,
-      msg: 'Las contraseñas no coinciden'
-    });
-  }
 
-  res.status(200).json({
-    ok: true,
-    msg: 'Crear usuario /new',
-    username, email, password 
-  });
-}
-
-const loginUsuario = (req, res = express.response) => {
+const loginUsuario = async (req, res = express.response) => {
 
   const { username, password }  = req.body;
 
@@ -37,11 +40,12 @@ const loginUsuario = (req, res = express.response) => {
   });
 }
 
-const revalidarToken = (req, res = express.response) => {
+const revalidarToken = async (req, res = express.response) => {
   res.json({
     ok: true,
     msg: 'Revalidar token /renew'
   });
+}
 }
 
 module.exports = {
