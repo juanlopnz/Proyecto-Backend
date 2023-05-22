@@ -1,6 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-const { dbConnection } = require('./database/config');
+const { dbConnection } = require('../Database/config');
 
 class Server {
   constructor(){
@@ -22,8 +22,8 @@ class Server {
   }
 
   setRoutes(){
-    this.app.use('/api/auth', require('./routes/auth'));
-    this.app.use('/api/posts', require('./routes/posts'));
+    this.app.use('/api/auth', require('../Routes/auth'));
+    this.app.use('/api/posts', require('../Routes/posts'));
   }
 
   listen(){
