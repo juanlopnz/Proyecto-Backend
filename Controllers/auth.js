@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'):
 const Usuario = require('../Models/User')
 
 const crearUsuario = async (req, res = express.response) => {
