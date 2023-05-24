@@ -56,4 +56,4 @@ const eliminarPost = (req, res = express.response) => {
   }
 }
 
-module.exports = { subirPost, listarPosts, eliminarPost };
+module.exports = { subirPost, listarPosts, eliminarPost }
