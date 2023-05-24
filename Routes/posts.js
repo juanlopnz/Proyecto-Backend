@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const { subirPost } = require('../Controllers/posts');
+const { subirPost, listarPosts, eliminarPost } = require('../Controllers/post');
 
-router.post('/sp', subirPost);
+router.post('/sp', subirPost)
+router.get('/', listarPosts)
+router.delete('/:id', eliminarPost)
 
 module.exports = router;

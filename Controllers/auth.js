@@ -23,7 +23,7 @@ const crearUsuario = async (req, res = express.response) => {
       })
     }
 
-    const user = new Usuario(username, email, password);
+    const user = new Usuario({username, email, password});
     const salt = bcrypt.genSaltSync();
     user.password = bcrypt.hashSync(password, salt);
     await user.save();

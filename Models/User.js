@@ -14,6 +14,20 @@ const UserSchema = Schema({
     type: String,
     require: true
   }
+}, {
+  toJSON: {
+    virtuals: true,
+  },
+  toObject: {
+    virtuals: true,
+  }
 });
+
+UserSchema.virtual('Posts', {
+  ref: 'Post',
+  localField: '_id',
+  foreignField: 'user',
+  justOne: false,
+})
 
 module.exports = model('User', UserSchema);
