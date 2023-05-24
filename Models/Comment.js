@@ -12,4 +12,4 @@ const CommentSchema = Schema({
   },
 });
 
-module.exports = model('Comment', PostSchema);
+module.exports = model('Comment', CommentSchema);

@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+const cors = require('cors');
 const { dbConnection } = require('../Database/config');
 
 class Server {
@@ -16,6 +17,8 @@ class Server {
   }
 
   addMiddlewares(){
+    this.app.use(cors());
+    
     this.app.use(express.static('public'));
 
     this.app.use(express.json());
