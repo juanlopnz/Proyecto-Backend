@@ -1,12 +1,16 @@
 const express = require('express');
+const { Post } = require('../Models/Post');
 
-const subirPost = (req, res = express.response) => {
+const subirPost = async (req, res = express.response) => {
+
+  const post = new Post(req.body);
+
   try {
-
-    const {title, description, url, like, comment} = req.body;
-
+    post.user = req.uid;
+    const savedPost = await post.save();
     res.json({
       ok: true,
+      post: savedPost,
       msg: 'Subir post /sp'
     });
     
@@ -19,10 +23,13 @@ const subirPost = (req, res = express.response) => {
   }
 }
 
-const listarPosts = (req, res = express.response) => {
+const listarPosts = async (req, res = express.response) => {
+  const posts = await Post.find().populate('user', 'url');
+
   try {
     res.json({
       ok: true,
+      posts,
       msg: 'Listar posts /'
     }); 
   } catch (err) {
