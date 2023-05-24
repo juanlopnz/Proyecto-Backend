@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { check } = require('express-validator');
 
 const { subirPost, listarPosts, eliminarPost } = require('../Controllers/post');
 
